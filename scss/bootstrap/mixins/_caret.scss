@@ -1,0 +1,66 @@
+@mixin clinict-down {
+  border-top: $clinict-width solid;
+  border-right: $clinict-width solid transparent;
+  border-bottom: 0;
+  border-left: $clinict-width solid transparent;
+}
+
+@mixin clinict-up {
+  border-top: 0;
+  border-right: $clinict-width solid transparent;
+  border-bottom: $clinict-width solid;
+  border-left: $clinict-width solid transparent;
+}
+
+@mixin clinict-right {
+  border-top: $clinict-width solid transparent;
+  border-right: 0;
+  border-bottom: $clinict-width solid transparent;
+  border-left: $clinict-width solid;
+}
+
+@mixin clinict-left {
+  border-top: $clinict-width solid transparent;
+  border-right: $clinict-width solid;
+  border-bottom: $clinict-width solid transparent;
+}
+
+@mixin clinict($direction: down) {
+  @if $enable-clinict {
+    &::after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      margin-left: $clinict-width * .85;
+      vertical-align: $clinict-width * .85;
+      content: "";
+      @if $direction == down {
+        @include clinict-down;
+      } @else if $direction == up {
+        @include clinict-up;
+      } @else if $direction == right {
+        @include clinict-right;
+      }
+    }
+
+    @if $direction == left {
+      &::after {
+        display: none;
+      }
+
+      &::before {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        margin-right: $clinict-width * .85;
+        vertical-align: $clinict-width * .85;
+        content: "";
+        @include clinict-left;
+      }
+    }
+
+    &:empty::after {
+      margin-left: 0;
+    }
+  }
+}
