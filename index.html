@@ -606,45 +606,76 @@
               </ul>
             </div>
           </div>
-    			<div class="col-md-6 py-5 pl-md-5">
-    				<div class="heading-section mb-5 ftco-animate">
-	            <h2 class="mb-2">Get a Free Quote</h2>
-	          </div>
-	          <form action="#" class="ftco-animate">
-	          	<div class="row">
-	          		<div class="col-md-6">
-		              <div class="form-group">
-		                <input type="text" class="form-control" placeholder="Full Name">
-		              </div>
-	              </div>
-	              <div class="col-md-6">
-		              <div class="form-group">
-		                <input type="text" class="form-control" placeholder="Email">
-		              </div>
-	              </div>
-	              <div class="col-md-6">
-	              	<div class="form-group">
-		                <input type="text" class="form-control" placeholder="Phone">
-		              </div>
-		            </div>
-	              <div class="col-md-6">
-	              	<div class="form-group">
-		                <input type="text" class="form-control" placeholder="Website">
-		              </div>
-		            </div>
-		            <div class="col-md-12">
-		              <div class="form-group">
-		                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-		              </div>
-		            </div>
-		            <div class="col-md-12">
-		              <div class="form-group">
-		                <input type="submit" value="Get a Quote" class="btn btn-primary py-3 px-5">
-		              </div>
-	              </div>
+          <div class="col-md-6 py-5 pl-md-5">
+            <div class="heading-section mb-5 ftco-animate">
+              <h2 class="mb-2">Get a Free Quote</h2>
+            </div>
+            <form id="quoteForm" onsubmit="sendToWhatsApp(event)" class="ftco-animate">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" name="website" id="website" class="form-control" placeholder="Website">
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <textarea name="message" id="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input type="submit" value="Get a Quote" class="btn btn-primary py-3 px-5">
+                  </div>
+                </div>
               </div>
             </form>
-    			</div>
+          </div>
+          
+          <script>
+            function sendToWhatsApp(event) {
+              event.preventDefault(); // Prevent form from submitting normally
+          
+              // Get form data
+              const name = document.getElementById('name').value;
+              const email = document.getElementById('email').value;
+              const phone = document.getElementById('phone').value;
+              const website = document.getElementById('website').value;
+              const message = document.getElementById('message').value;
+          
+              // Format message for WhatsApp
+              const whatsappMessage = `
+                  Hello! I would like to request a quote.
+                  Name: ${name}
+                  Email: ${email}
+                  Phone: ${phone}
+                  Website: ${website}
+                  Message: ${message}
+              `.replace(/\n/g, '%0A'); // Replace newlines with URL-encoded line breaks
+          
+              // WhatsApp number
+              const whatsappNumber = '918105721843'; // Replace with your number (no '+' sign)
+          
+              // Redirect to WhatsApp
+              const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+              window.open(whatsappUrl, '_blank');
+            }
+          </script>
+          
     		</div>
     	</div>
     </section>
